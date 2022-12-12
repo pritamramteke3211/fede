@@ -29,16 +29,6 @@ const ChatList = () => {
         console.log("err", err)
       }
       
-
-      // onSnapshot(query(collection(db, 'matches'), where('usersMatched','array-contains', userData.uid)), 
-      // snapshot =>
-      // setmatches(
-      //   snapshot.docs.map(doc => 
-      //       ({ 
-      //       fid: doc.id,
-      //       ...doc.data(),
-      //   }) ))
-      //  )
     }, [userData])
     
  

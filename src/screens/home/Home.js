@@ -35,7 +35,7 @@ import {
 } from 'firebase/firestore';
 import generateId from '../../../lib/generateId';
 import firestore from '@react-native-firebase/firestore';
-import { set } from 'immer/dist/internal';
+
 
 
 const Home = ({navigation}) => {
@@ -68,7 +68,6 @@ const Home = ({navigation}) => {
       let all_user = []
         firestore()
         .collection('users')
-        
         .get()
         .then(querySnapshot => {
           // console.log('Total users: ', querySnapshot.size);
@@ -92,46 +91,85 @@ const Home = ({navigation}) => {
 
   };
 
-  const filterPasses = async () => {
-    
-    const passes = await getDocs(
-      collection(db, 'users', fuser_id, 'passes'),
-    ).then(snapshot => snapshot.docs.map(doc => doc.id));
+  const filterPasses = async (my_prof) => {
 
-    const swipes = await getDocs(
-      collection(db, 'users', fuser_id, 'swipes'),
-    ).then(snapshot => snapshot.docs.map(doc => doc.id));
+console.log();
+console.log("my_prof",my_prof.gender);
+let passedUserIds = []
+let swipedUserIds = []
 
-    const passedUserIds = passes.length > 0 ? passes : ['test'];
-    const swipedUserIds = swipes.length > 0 ? swipes : ['test'];
+  let fltp = await db.doc(userData.uid).collection('passes').get()
+  .then(snapshot => 
+  {
+    if (snapshot.docs.length > 0) {
+    passedUserIds = snapshot.docs.map(doc => doc.id)
+  }
+  else{
+    passedUserIds = ['test'] 
+  }
+  })
 
-    console.log([...passedUserIds, ...swipedUserIds]);
+  let flts = await db.doc(userData.uid).collection('swipes').get()
+  .then(snapshot => 
+  {
+    if (snapshot.docs.length > 0) {
+      swipedUserIds = snapshot.docs.map(doc => doc.id)
+  }
+  else{
+    swipedUserIds = ['test'] 
+  }
+  })
+  
+  // console.log("passedUserIds",passedUserIds)
+  // console.log("swipedUserIds",swipedUserIds)
 
-    let unsubw;
-    unsubw = onSnapshot(
-      query(
-        collection(db, 'users'),
-        where('id', 'not-in', [...passedUserIds, ...swipedUserIds]),
-      ),
-      snapshot => {
-        let data2 = snapshot.docs
-          .map(doc => ({fid: doc.id, ...doc.data()}))
-          .filter(doc => doc.id !== userData.uid);
-        console.log(data2);
-        setprofiles(data2);
-      },
-    );
+  // console.log([...passedUserIds, ...swipedUserIds]);
+
+  
+
+  let user_data = []
+  let fpr =  await db
+  // .where('gender', '==', my_prof.gender)
+  // where('uid', 'not-in', [...passedUserIds, ...swipedUserIds,my_prof.uid])
+  // .where('usersMatched','array-contains', userData.uid)
+
+  fpr = fpr.where('uid', 'not-in', [...passedUserIds, ...swipedUserIds,my_prof.uid])
+  // fpr = fpr.where('gender', '==', my_prof.gender == 'm' ? 'f':'m')
+  // fpr = fpr.where(...)
+  // fpr = fpr.where(...)
+
+  fpr.onSnapshot(snap => {
+  snap.docs.map(doc => 
+    {
+    if (doc.exists) {
+      user_data.push(doc.data()) 
+    }})
+  
+  setprofiles(user_data.filter(v => v.gender !=  my_prof.gender ))
+  // setprofiles(user_data)
+  })
+ 
   };
+  
+  const getMyData = async()=>{
+    let dbg =  await db.doc(userData.uid)
+    .onSnapshot(snap => {
+    
+    setmy_profile(snap.data())
+    });
+  }
 
   useEffect(() => {
-      // filterPasses();
-
-  }, [userData]);
+   
+    if (my_profile) {
+      filterPasses(my_profile);
+    }
+  }, [my_profile]);
 
   useLayoutEffect(() => {
-    getData();
+    getMyData();
     const willFocusSubscription = navigation.addListener('focus', () => {
-      getData();
+      getMyData();
     });
     return willFocusSubscription;
   }, []);

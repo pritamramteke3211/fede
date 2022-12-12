@@ -13,21 +13,28 @@ const ChatRow = ({matchDetails}) => {
     const userData = useSelector(state => state.authentication.user_data);
     const [matchedUserInfo, setmatchedUserInfo] = useState(null)
     const [lastMessage, setlastMessage] = useState('')
+    const [messages, setmessages] = useState([])
     const db = firestore().collection('users')    
 
-    // useEffect(() => {
-    //   setmatchedUserInfo(getMatchedUserInfo(matchDetails.users, userData.uid))
-    // }, [matchDetails,userData])
-    
-    // useEffect(
-    //     () =>
-    //       onSnapshot(
-    //         query(
-    //           collection(db, "matches", matchDetails.fid, "messages"),              
-    //           orderBy("timestamp", "desc")
-    //         ), snapshot => setlastMessage(snapshot.docs[0]?.data().message)
-    //       ),[(matchDetails, db)]
-    //   );
+    const getLastMsg = async()=>{
+      
+      let lsMsg = await firestore().collection('matches').doc(matchDetails.fid).collection('messages').orderBy("timestamp", "desc").onSnapshot(snap => 
+        {
+          // setlastMessage(snap.docs[0]?.data().message)
+        console.log("snap",snap.docs.length)
+        if (snap.docs.length > 0) {
+          setlastMessage(snap.docs[0].data().message)
+        }
+      
+      }
+        )
+    }
+
+    useEffect(() => {
+     
+      setmatchedUserInfo(getMatchedUserInfo(matchDetails.users, userData.uid))
+      getLastMsg()
+    }, [matchDetails,userData])
     
 
   return (
