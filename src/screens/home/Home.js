@@ -36,7 +36,40 @@ import {
 import generateId from '../../../lib/generateId';
 import firestore from '@react-native-firebase/firestore';
 
-
+const DUMMY_DATA = [
+  {
+    firstName: "Ajay",
+    lastName: "Singh",
+    job: "Softwere Developer",
+    photoURL:
+      "https://i.pinimg.com/564x/18/ac/f6/18acf66acc712106e2b104b714b6857e.jpg",
+    age: 20,
+  },
+  {
+    firstName: "Abhinav",
+    lastName: "Singh",
+    job: "Softwere Developer",
+    photoURL:
+      "https://i.pinimg.com/originals/4b/3d/31/4b3d31c8f98ba6a4d0aef95ba47ebc3a.jpg",
+    age: 20,
+  },
+  {
+    firstName: "Raman",
+    lastName: "Das",
+    job: "Softwere Developer",
+    photoURL:
+      "https://i.pinimg.com/564x/14/c6/41/14c641999465fd100050bc22b7fe0126.jpg",
+    age: 20,
+  },
+  // {
+  //   firstName: "Mukesh",
+  //   lastName: "Bera",
+  //   job: "Softwere Developer",
+  //   photoURL:
+  //     "https://i.pinimg.com/564x/da/14/f2/da14f22093da9707f483250d704d11e3.jpg",
+  //   age: 20,
+  // },
+];
 
 const Home = ({navigation}) => {
 
@@ -338,19 +371,8 @@ try {
         stackSize={3}
         cardIndex={0}
         animateCardOpacity
-        onSwipedLeft={cardIndex => {
-          console.log('Swipe PASS');
-          setrefresh(!refresh)
-          swipeLeft(cardIndex);
-          // setrefresh(!refresh);
-        }}
-        onSwipedRight={cardIndex => {
-          console.log('Swipe MATCH');
-          setrefresh(!refresh)
-          swipeRight(cardIndex);
-          // setrefresh(!refresh);
-        }}
-        backgroundColor={'#4FD0E9'}
+        verticalSwipe={false}
+        onSwipedAll={()=> setprofiles([])}
         overlayLabels={{
           left: {
             title: 'NOPE',
@@ -371,17 +393,17 @@ try {
             },
           },
         }}
-        verticalSwipe={false}
+        
         renderCard={card =>
           card ? (
             <View
-              key={card.id}
-              style={{
-                backgroundColor: 'white',
-                borderRadius: 10,
-                height: 500,
-                position: 'relative',
-              }}>
+            key={card.id}
+            style={{
+              backgroundColor: 'white',
+              borderRadius: 10,
+              height: 500,
+              position: 'relative',
+            }}>
               <Image
                 style={{
                   position: 'absolute',
@@ -391,7 +413,7 @@ try {
                   borderRadius: 10,
                 }}
                 source={{uri: card.photoURL}}
-              />
+                />
               <View
                 style={[
                   {
@@ -423,14 +445,18 @@ try {
             </View>
           ) : (
             <View
-              style={{
-                backgroundColor: 'white',
-                borderRadius: 10,
-                height: 500,
-                // position: 'relative',
-                alignItems: 'center',
-                justifyContent: 'center',
-              }}>
+            style={[{
+              backgroundColor: 'white',
+              borderRadius: 10,
+              height: 500,
+              position: 'relative',
+              alignItems: 'center',
+              justifyContent: 'center',
+              borderBottomLeftRadius: 0,
+              borderBottomRightRadius: 0,
+              
+              
+            },styles.cardShadow]}>
               <Text style={{fontWeight: 'bold', paddingBottom: 20}}>
                 No More Profiles
               </Text>
@@ -441,10 +467,24 @@ try {
                   borderRadius: 10,
                 }}
                 source={{uri: 'https://links.papareact.com/6gb'}}
-              />
+                />
             </View>
           )
+          
         }
+        backgroundColor={'#4FD0E9'}
+        onSwipedLeft={cardIndex => {
+          console.log('Swipe PASS');
+          setrefresh(!refresh)
+          swipeLeft(cardIndex);
+          // setrefresh(!refresh);
+        }}
+        onSwipedRight={cardIndex => {
+          console.log('Swipe MATCH');
+          setrefresh(!refresh)
+          swipeRight(cardIndex);
+          // setrefresh(!refresh);
+        }}
       />
     </View>
 

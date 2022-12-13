@@ -5689,10 +5689,10 @@
     "jscodeshift" "^0.13.1"
     "nullthrows" "^1.1.1"
 
-"react-native-deck-swiper@^2.0.12":
-  "integrity" "sha512-fphojlLDMkg5ppHqoAh/9ZuDzsdxR/HTKGFhAkEOlNe08r/MRUpyYJHLxKS83CnPQLJvvY7ol9pHvTm9D+DSRg=="
-  "resolved" "https://registry.npmjs.org/react-native-deck-swiper/-/react-native-deck-swiper-2.0.12.tgz"
-  "version" "2.0.12"
+"react-native-deck-swiper@^2.0.5":
+  "integrity" "sha512-PRDsdgAYUogMMwPWChEL/XsEpSob8CFNd9ThsvoyMV2lXd2bR4VZsHSuyVgXvqiHspGb3modbvogBpiSOZ3oHQ=="
+  "resolved" "https://registry.npmjs.org/react-native-deck-swiper/-/react-native-deck-swiper-2.0.5.tgz"
+  "version" "2.0.5"
   dependencies:
     "prop-types" "15.5.10"
 

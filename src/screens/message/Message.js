@@ -22,7 +22,7 @@ const Message = () => {
       let Msgs = await firestore().collection('matches').doc(matchDetails.fid).collection('messages').orderBy("timestamp", "desc").onSnapshot(snap => 
         {
           // setlastMessage(snap.docs[0]?.data().message)
-        console.log("snap",snap.docs.length)
+        
         if (snap.docs.length > 0) {
           let msgs = snap.docs.map( doc =>
             ({
