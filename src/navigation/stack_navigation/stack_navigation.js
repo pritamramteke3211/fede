@@ -1,6 +1,7 @@
 import {createStackNavigator} from '@react-navigation/stack';
 import {useSelector} from 'react-redux';
 import Chat from '../../screens/chat/Chat';
+import GetLocation from '../../screens/getLocation/GetLocation';
 import Home from '../../screens/home/Home';
 import Login from '../../screens/login/Login';
 import Match from '../../screens/match/Match';
@@ -19,6 +20,7 @@ export default StackNav = () => {
       {logined ? (
         <>
           <Stack.Group>
+            <Stack.Screen name="GetLocation" component={GetLocation} />
             <Stack.Screen name="Home" component={Home} />
             <Stack.Screen name="Chat" component={Chat} />
             <Stack.Screen name="Message" component={Message} />

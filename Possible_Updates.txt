@@ -1,0 +1,2 @@
+1. Add Allow Location Screen
+2. Add React Animation
