@@ -1,2 +1,4 @@
 1. Add Allow Location Screen
 2. Add React Animation
+3. Add Font Like Tinder
+4. Add Attractive Status Bar
