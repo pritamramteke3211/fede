@@ -1,4 +1,4 @@
-import React, {useState, useEffect, useRef, useCallback} from 'react';
+import React, {useState, useEffect, useRef} from 'react';
 
 import { 
   Text,
@@ -31,21 +31,6 @@ const GetLocation = ({navigation}) => {
   const [locationStatus, setlocationStatus] = useState('')
 
   const watchID = null;
-
-
-  const onTellMeMore = useCallback(
-    () => {
-    
-    const isActive = ref?.current?.isActive();
-    if (isActive) {
-      ref?.current?.scrollTo(0);
-    } else {
-      ref?.current?.scrollTo(-200);
-    }
-    
-  },[],
-  )
-  
 
   const getLocation = ()=>{
     const requestLocationPermission = async()=>{
@@ -121,12 +106,7 @@ const GetLocation = ({navigation}) => {
 
   return (
     <GestureHandlerRootView style={gstyles.container}>
-      
-<View style={gstyles.container}>    
-        
-        <View style={[
-          styles.location_container,
-          gstyles.center_align]}>
+        <View style={[styles.location_container,gstyles.center_align]}>
             <View style={[styles.icon_container,gstyles.center_align]}>
                 <EvlIcon
                 name='location'
@@ -134,10 +114,7 @@ const GetLocation = ({navigation}) => {
                 />
             </View>
         </View>
-
-        <View style={[
-              styles.location_para_container,
-              gstyles.center_align]}>
+        <View style={[styles.location_para_container,gstyles.center_align]}>
             <View style={styles.loc_title_container}>
             <Text style={[styles.loc_title,gstyles.glob_fontmedium]}>Enable location</Text>
             </View>
@@ -158,9 +135,7 @@ const GetLocation = ({navigation}) => {
 
             <TouchableOpacity style={[
               styles.more_title_container,
-              ]}
-              onPress={onTellMeMore}
-              >
+              ]}>
             <Text style={[styles.more_title,gstyles.glob_fontmedium]}>TELL ME MORE</Text>
             <EntIcon
                 name='chevron-small-down'
@@ -168,14 +143,13 @@ const GetLocation = ({navigation}) => {
                 />
             </TouchableOpacity>
 
-        </View>
-        </View>
-        <BottomSheet ref={ref}>
+            <BottomSheet ref={ref}>
              <View>
               <Text>Slide</Text>
              </View>
             </BottomSheet>
-       
+        </View>
+    
     </GestureHandlerRootView>
   )
 }
@@ -184,10 +158,7 @@ export default GetLocation
 
 const styles = StyleSheet.create({
     location_main_container:{
-      flex: 1,
-      justifyContent:'space-between',
-      alignItems:'center',
-      // paddingVertical: 5,
+      paddingVertical: 5,
       // paddingHorizontal: 20,
     },
     location_container:{
