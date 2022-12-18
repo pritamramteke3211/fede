@@ -14,7 +14,7 @@ import {
     setUserdata,
   } from '../../store/feature/authentication/authentication';
   
-  const FirstScreen = ({navigation}) => {
+  const Splash = ({navigation}) => {
     const dispatch = useDispatch();
     const logined = useSelector(state => state.authentication.login);
     const log_user_loc = useSelector(state => state.authentication.login_user_location)
@@ -32,7 +32,10 @@ import {
     }
 
     useLayoutEffect(() => {
-      checkCred()
+      setTimeout(() => {
+        checkCred()  
+      }, 1500);
+      
     }, [])
   
     return (
@@ -47,7 +50,7 @@ import {
     );
   };
   
-  export default FirstScreen;
+  export default Splash;
   
   const styles = StyleSheet.create({
     container: {

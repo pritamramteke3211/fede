@@ -7,7 +7,7 @@ import Login from '../../screens/login/Login';
 import Match from '../../screens/match/Match';
 import Message from '../../screens/message/Message';
 import Modal from '../../screens/modal/Modal';
-import FirstScreen from '../../screens/stack/FirstScreen';
+import Splash from '../../screens/stack/Splash';
 
 const Stack = createStackNavigator();
 
@@ -22,7 +22,7 @@ export default StackNav = () => {
       >
           <Stack.Group>
           
-          <Stack.Screen name="FirstScreen" component={FirstScreen} />
+          <Stack.Screen name="Splash" component={Splash} />
           <Stack.Screen name="Login" component={Login} />
             <Stack.Screen name="GetLocation" component={GetLocation} />
             <Stack.Screen name="Home" component={Home} />
