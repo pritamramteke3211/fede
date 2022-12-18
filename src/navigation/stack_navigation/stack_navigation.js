@@ -7,19 +7,23 @@ import Login from '../../screens/login/Login';
 import Match from '../../screens/match/Match';
 import Message from '../../screens/message/Message';
 import Modal from '../../screens/modal/Modal';
+import FirstScreen from '../../screens/stack/FirstScreen';
 
 const Stack = createStackNavigator();
 
 export default StackNav = () => {
-  const logined = useSelector(state => state.authentication.login);
+
   return (
     <Stack.Navigator
       screenOptions={{
         headerShown: false,
-      }}>
-      {logined ? (
-        <>
+      }}
+     
+      >
           <Stack.Group>
+          
+          <Stack.Screen name="FirstScreen" component={FirstScreen} />
+          <Stack.Screen name="Login" component={Login} />
             <Stack.Screen name="GetLocation" component={GetLocation} />
             <Stack.Screen name="Home" component={Home} />
             <Stack.Screen name="Chat" component={Chat} />
@@ -32,10 +36,9 @@ export default StackNav = () => {
           <Stack.Group screenOptions={{presentation: 'transparentModal'}}>
             <Stack.Screen name="Match" component={Match} />
           </Stack.Group>
-        </>
-      ) : (
-        <Stack.Screen name="Login" component={Login} />
-      )}
+        
+       
+      
     </Stack.Navigator>
   );
 };

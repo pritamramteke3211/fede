@@ -2,7 +2,7 @@ import { Dimensions, StyleSheet, Text, View } from 'react-native'
 import React, { forwardRef, useCallback, useEffect, useImperativeHandle } from 'react'
 import Animated, { Extrapolate, interpolate, useAnimatedStyle, useSharedValue, withSpring, withTiming } from 'react-native-reanimated';
 import { Gesture, GestureDetector } from 'react-native-gesture-handler';
-import EntIcon from 'react-native-vector-icons/Entypo'
+
 
 const { height: SCREEN_HEIGHT } = Dimensions.get('window');
 
@@ -41,19 +41,29 @@ const BottomSheet = forwardRef(({children},ref) => {
     translateY.value = Math.max(translateY.value, MAX_TRANSLATE_Y);
   })
   .onEnd(() => {
-    if (translateY.value > -SCREEN_HEIGHT / 2) {
+    if (translateY.value > -SCREEN_HEIGHT / 3) {
       scrollTo(0);
-    } else if (translateY.value < -SCREEN_HEIGHT / 2) {
+    } else if (translateY.value < -SCREEN_HEIGHT / 1.5) {
       scrollTo(MAX_TRANSLATE_Y);
     }
   });
 
 
-
+  useEffect(() => {
+    translateY.value = withSpring(-SCREEN_HEIGHT/3, {damping: 50})
+  }, [])
+  
 
   const rBottomSheetStyle = useAnimatedStyle(() => {
-    
+    const borderRadius = interpolate(
+      translateY.value,
+      [MAX_TRANSLATE_Y + 50, MAX_TRANSLATE_Y],
+      [25, 0],
+      Extrapolate.CLAMP
+    );
+
     return {
+      borderRadius,
       transform: [{ translateY: translateY.value }],
     };
   });
@@ -61,13 +71,8 @@ const BottomSheet = forwardRef(({children},ref) => {
   return (
     <GestureDetector gesture={gesture }>
     <Animated.View style={[styles.bottomSheetContainer, rBottomSheetStyle]}>
-      <View style={{alignSelf:'center'}}>
-      <EntIcon
-                name='chevron-small-up'
-                size={25}
-                color={'green'}
-                />
-     
+      <View style={styles.line}>
+      <Text>BottomSheet</Text>
       </View>
       {children}
     </Animated.View>
@@ -81,10 +86,10 @@ const styles = StyleSheet.create({
   bottomSheetContainer: {
     height: SCREEN_HEIGHT,
     width: '100%',
-    backgroundColor: 'white',
+    backgroundColor: 'red',
     position: 'absolute',
     top: SCREEN_HEIGHT,
-    // borderRadius: 25,
+    borderRadius: 25,
   },
   line: {
     width: 75,

@@ -20,18 +20,19 @@ import { scr_width,scr_height } from '../../constant/ProjectConstant';
 import LinearGradient from 'react-native-linear-gradient';
 import BottomSheet from '../../../components/bottom_sheet/BottomSheet';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
+import AllowLocationBtn from '../../../components/Btn/AllowLocationBtn';
+import { useDispatch, useSelector } from 'react-redux';
+import { setLoginUserLocation } from '../../store/feature/authentication/authentication';
 
 
 const GetLocation = ({navigation}) => {
 
   const ref = useRef()
+  const dispatch = useDispatch()
 
-  const [currentLongitude, setcurrentLongitude] = useState('...')
-  const [currentLatitude, setcurrentLatitude] = useState('...')
   const [locationStatus, setlocationStatus] = useState('')
 
   const watchID = null;
-
 
   const onTellMeMore = useCallback(
     () => {
@@ -40,7 +41,7 @@ const GetLocation = ({navigation}) => {
     if (isActive) {
       ref?.current?.scrollTo(0);
     } else {
-      ref?.current?.scrollTo(-200);
+      ref?.current?.scrollTo(-scr_height+45); 
     }
     
   },[],
@@ -99,23 +100,23 @@ const GetLocation = ({navigation}) => {
         //getting the Latitude from the location json
         const currentLatitude = JSON.stringify(position.coords.latitude)
 
-        //Setting Longitude state
-        setcurrentLongitude(currentLongitude)
-
-        //Setting Lattitude state
-        setcurrentLatitude(currentLatitude)
+        dispatch(setLoginUserLocation({longitude: currentLongitude, latitude: currentLatitude}))        
+        
+        setlocationStatus('clean')
+        navigation.navigate('Home')
       },
       (err) =>{
         setlocationStatus(err.message)
+        alert(err.message)
       },
 
       {
         enableHighAccuracy: false,
         timeout: 5000,
         maximumAge: 10000
-      },
+      }, 
     );
-    navigation.navigate('Home')
+    
   };
   
 
@@ -128,7 +129,9 @@ const GetLocation = ({navigation}) => {
           styles.location_container,
           gstyles.center_align]}>
             <View style={[styles.icon_container,gstyles.center_align]}>
-                <EvlIcon
+        
+            
+        <EvlIcon
                 name='location'
                 size={scr_width/3.2}
                 />
@@ -138,23 +141,16 @@ const GetLocation = ({navigation}) => {
         <View style={[
               styles.location_para_container,
               gstyles.center_align]}>
+          
             <View style={styles.loc_title_container}>
-            <Text style={[styles.loc_title,gstyles.glob_fontmedium]}>Enable location</Text>
+              <Text style={[styles.loc_title,gstyles.glob_fontmedium]}>Enable location</Text>
             </View>
             <View style={styles.loc_para_container}>
-            <Text style={[styles.loc_para,gstyles.glob_fontmedium]}>You'll need to enable your {'\n'} location {'\n'} order to use Fede</Text>
+              <Text style={[styles.loc_para,gstyles.glob_fontmedium]}>You'll need to enable your {'\n'} location {'\n'} order to use Fede</Text>
             </View>
 
-            <TouchableOpacity onPress={() => getLocation() } >
-            <LinearGradient
-            style={styles.btn_container} 
-            start={{x: 0, y: 0}} end={{x: 1, y: 0}}
-           colors={['#fa298b', '#f55f14']}   
-           
-          >
-              <Text style={[styles.btn_title,gstyles.glob_fontmedium]} >ALLOW LOCATION</Text>
-            </LinearGradient>
-            </TouchableOpacity>
+            
+            <AllowLocationBtn getLocation={getLocation} />
 
             <TouchableOpacity style={[
               styles.more_title_container,
@@ -170,10 +166,19 @@ const GetLocation = ({navigation}) => {
 
         </View>
         </View>
+
         <BottomSheet ref={ref}>
-             <View>
-              <Text>Slide</Text>
-             </View>
+          <View style={[gstyles.center_align,{paddingVertical: 25}]}>
+              <AllowLocationBtn getLocation={getLocation} />
+          </View>
+          <View style={[{height:scr_height/1.4, backgroundColor:'#fff'},gstyles.center_align]}>
+          <View style={styles.loc_title_container}>
+            <Text style={[styles.loc_title,gstyles.glob_fontmedium]}>Meet people nearby</Text>
+            </View>
+            <View style={styles.loc_para_container}>
+            <Text style={[styles.loc_para,gstyles.glob_fontmedium]}>Your location will be used to {'\n'} show {'\n'} potential matches near you</Text>
+            </View>
+          </View>
             </BottomSheet>
        
     </GestureHandlerRootView>
@@ -183,13 +188,7 @@ const GetLocation = ({navigation}) => {
 export default GetLocation
 
 const styles = StyleSheet.create({
-    location_main_container:{
-      flex: 1,
-      justifyContent:'space-between',
-      alignItems:'center',
-      // paddingVertical: 5,
-      // paddingHorizontal: 20,
-    },
+   
     location_container:{
         flex:1.2, 
     },

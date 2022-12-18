@@ -14,7 +14,7 @@ import {
   setUserdata,
 } from '../../store/feature/authentication/authentication';
 
-const Login = () => {
+const Login = ({navigation}) => {
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -33,9 +33,8 @@ const Login = () => {
 
   return (
     <View style={styles.container}>
-      <ImageBackground
-        source={{uri: 'https://tinder.com/static/tinder.png'}}
-        resizeMode="cover"
+      <View
+       
         style={{flex: 1}}>
         <TouchableOpacity
           style={styles.btn}
@@ -43,6 +42,7 @@ const Login = () => {
             googleSign().then(res => {
               dispatch(setUserdata(res.user));
               dispatch(setLogin(true));
+              navigation.navigate('GetLocation');
             })
           }>
           <Text
@@ -52,7 +52,7 @@ const Login = () => {
             Signin in & get swiping
           </Text>
         </TouchableOpacity>
-      </ImageBackground>
+      </View>
     </View>
   );
 };
