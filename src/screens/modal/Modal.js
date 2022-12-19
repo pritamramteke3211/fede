@@ -10,6 +10,11 @@ import React, {useState} from 'react';
 import {useNavigation} from '@react-navigation/native';
 import {useSelector} from 'react-redux';
 import firestore from '@react-native-firebase/firestore';
+import {
+  moderateScale,
+  moderateScaleVertical,
+  scr_width,
+} from '../../styles/ResponsiveSize';
 
 const Modal = () => {
   const userData = useSelector(state => state.authentication.user_data);
@@ -45,18 +50,23 @@ const Modal = () => {
     <View
       style={{
         flex: 1,
-        marginTop: 10,
+        marginTop: moderateScaleVertical(10),
         borderRadius: 10,
         alignItems: 'center',
         backgroundColor: '#fff',
       }}>
       <Image
-        style={{height: 100, width: '100%'}}
+        style={{height: 100, width: scr_width}}
         resizeMode="contain"
         source={{uri: 'https://links.papareact.com/2pf'}}
       />
       <Text
-        style={{fontSize: 18, color: 'gray', padding: 5, fontWeight: 'bold'}}>
+        style={{
+          fontSize: 18,
+          color: 'gray',
+          padding: moderateScale(5),
+          fontWeight: 'bold',
+        }}>
         Welcome {userData.displayName}
       </Text>
 
@@ -64,13 +74,17 @@ const Modal = () => {
         style={{
           textAlign: 'center',
           fontWeight: 'bold',
-          padding: 7,
+          padding: moderateScale(7),
           color: 'red',
         }}>
         Step 1: The Profile Pic
       </Text>
       <TextInput
-        style={{paddingBottom: 5, textAlign: 'center', fontSize: 16}}
+        style={{
+          paddingBottom: moderateScaleVertical(5),
+          textAlign: 'center',
+          fontSize: 16,
+        }}
         placeholder="Enter a Profile Pic URL"
         value={image}
         onChangeText={setimage}
@@ -80,13 +94,17 @@ const Modal = () => {
         style={{
           textAlign: 'center',
           fontWeight: 'bold',
-          padding: 7,
+          padding: moderateScale(7),
           color: 'red',
         }}>
         Step 2: The Job
       </Text>
       <TextInput
-        style={{paddingBottom: 5, textAlign: 'center', fontSize: 16}}
+        style={{
+          paddingBottom: moderateScaleVertical(5),
+          textAlign: 'center',
+          fontSize: 16,
+        }}
         placeholder="Enter your occupation"
         value={job}
         onChangeText={setjob}
@@ -96,13 +114,17 @@ const Modal = () => {
         style={{
           textAlign: 'center',
           fontWeight: 'bold',
-          padding: 7,
+          padding: moderateScale(7),
           color: 'red',
         }}>
         Step 3: The Age
       </Text>
       <TextInput
-        style={{paddingBottom: 5, textAlign: 'center', fontSize: 16}}
+        style={{
+          paddingBottom: moderateScaleVertical(5),
+          textAlign: 'center',
+          fontSize: 16,
+        }}
         placeholder="Enter your age"
         value={age}
         onChangeText={setage}
@@ -115,10 +137,10 @@ const Modal = () => {
           width: '40%',
           alignItems: 'center',
           backgroundColor: incompleteForm ? '#80808070' : '#ff00007c',
-          padding: 12,
+          padding: moderateScale(12),
           borderRadius: 10,
           position: 'absolute',
-          bottom: 10,
+          bottom: moderateScaleVertical(10),
         }}
         onPress={updateUserProfile}>
         <Text style={{color: '#fff', fontSize: 16}}>Update Profile</Text>

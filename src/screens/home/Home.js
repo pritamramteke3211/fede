@@ -17,6 +17,10 @@ import AdIcon from 'react-native-vector-icons/AntDesign';
 import Swiper from 'react-native-deck-swiper';
 import generateId from '../../../lib/generateId';
 import firestore from '@react-native-firebase/firestore';
+import {
+  moderateScale,
+  moderateScaleVertical,
+} from '../../styles/ResponsiveSize';
 
 const Home = ({navigation}) => {
   const dispatch = useDispatch();
@@ -184,7 +188,7 @@ const Home = ({navigation}) => {
         style={{
           flexDirection: 'row',
           alignItems: 'center',
-          paddingHorizontal: 10,
+          paddingHorizontal: moderateScale(10),
           justifyContent: 'space-between',
           position: 'relative',
         }}>
@@ -211,7 +215,7 @@ const Home = ({navigation}) => {
       {/* End of Header */}
 
       {/* Cards */}
-      <View style={{flex: 1, marginTop: -6}}>
+      <View style={{flex: 1, marginTop: moderateScaleVertical(-6)}}>
         <Swiper
           ref={swipeRef}
           containerStyle={{backgroundColor: 'transparent'}}
@@ -272,8 +276,8 @@ const Home = ({navigation}) => {
                       flexDirection: 'row',
                       alignItems: 'center',
                       justifyContent: 'space-between',
-                      paddingHorizontal: 20,
-                      paddingVertical: 5,
+                      paddingHorizontal: moderateScale(20),
+                      paddingVertical: moderateScaleVertical(5),
                     },
                     styles.cardShadow,
                   ]}>
@@ -305,7 +309,11 @@ const Home = ({navigation}) => {
                   },
                   styles.cardShadow,
                 ]}>
-                <Text style={{fontWeight: 'bold', paddingBottom: 20}}>
+                <Text
+                  style={{
+                    fontWeight: 'bold',
+                    paddingBottom: moderateScaleVertical(20),
+                  }}>
                   No More Profiles
                 </Text>
                 <Image

@@ -4,7 +4,7 @@ const initialState = {
   login: false,
   user_data: {},
   f_id: '',
-  login_user_location : {longitude: '', latitude:''},
+  login_user_location: {longitude: '', latitude: ''},
 };
 
 export const authenticationSlice = createSlice({
@@ -19,13 +19,14 @@ export const authenticationSlice = createSlice({
     },
     setLoginUserLocation: (state, action) => {
       state.login_user_location = action.payload;
-    },  
+    },
     setFid: (state, action) => {
       state.f_id = action.payload;
     },
   },
 });
 
-export const {setLogin, setUserdata, setFid, setLoginUserLocation} = authenticationSlice.actions;
+export const {setLogin, setUserdata, setFid, setLoginUserLocation} =
+  authenticationSlice.actions;
 
 export default authenticationSlice.reducer;

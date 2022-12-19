@@ -13,6 +13,11 @@ import {
   setLogin,
   setUserdata,
 } from '../../store/feature/authentication/authentication';
+import {
+  moderateScale,
+  moderateScaleVertical,
+  scr_width,
+} from '../../styles/ResponsiveSize';
 
 const Login = ({navigation}) => {
   const dispatch = useDispatch();
@@ -33,9 +38,7 @@ const Login = ({navigation}) => {
 
   return (
     <View style={styles.container}>
-      <View
-       
-        style={{flex: 1}}>
+      <View style={{flex: 1}}>
         <TouchableOpacity
           style={styles.btn}
           onPress={() =>
@@ -65,10 +68,10 @@ const styles = StyleSheet.create({
   },
   btn: {
     position: 'absolute',
-    bottom: 120,
-    width: '50%',
-    marginHorizontal: '25%',
-    padding: 20,
+    bottom: moderateScaleVertical(120),
+    width: scr_width / 2,
+    marginHorizontal: moderateScale(scr_width * 0.25),
+    padding: moderateScale(20),
     borderRadius: 20,
     backgroundColor: '#fff',
   },

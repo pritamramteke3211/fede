@@ -6,6 +6,10 @@ import {useEffect} from 'react';
 import getMatchedUserInfo from '../lib/getMatchedUserInfo';
 import {useSelector} from 'react-redux';
 import firestore from '@react-native-firebase/firestore';
+import {
+  moderateScale,
+  moderateScaleVertical,
+} from '../src/styles/ResponsiveSize';
 
 const ChatRow = ({matchDetails}) => {
   const navigation = useNavigation();
@@ -38,9 +42,9 @@ const ChatRow = ({matchDetails}) => {
           flexDirection: 'row',
           alignItems: 'center',
           borderRadius: 10,
-          marginHorizontal: 10,
-          paddingVertical: 10,
-          paddingHorizontal: 10,
+          marginHorizontal: moderateScale(10),
+          paddingVertical: moderateScaleVertical(10),
+          paddingHorizontal: moderateScale(10),
           backgroundColor: 'white',
         },
         styles.cardShadow,
@@ -51,7 +55,12 @@ const ChatRow = ({matchDetails}) => {
         })
       }>
       <Image
-        style={{height: 50, aspectRatio: 1, borderRadius: 5, marginRight: 10}}
+        style={{
+          height: 50,
+          aspectRatio: 1,
+          borderRadius: 5,
+          marginRight: moderateScale(10),
+        }}
         source={{uri: matchedUserInfo?.photoURL}}
       />
 

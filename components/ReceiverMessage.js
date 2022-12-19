@@ -1,5 +1,6 @@
 import {Image, StyleSheet, Text, View} from 'react-native';
 import React from 'react';
+import {moderateScale} from '../src/styles/ResponsiveSize';
 
 const ReceiverMessage = ({message}) => {
   return (
@@ -14,7 +15,7 @@ const ReceiverMessage = ({message}) => {
           height: 40,
           aspectRatio: 1,
           borderRadius: 20,
-          marginHorizontal: 10,
+          marginHorizontal: moderateScale(10),
         }}
         source={{uri: message?.photoURL}}
       />
@@ -23,9 +24,9 @@ const ReceiverMessage = ({message}) => {
           backgroundColor: 'red',
           borderRadius: 5,
           borderTopLeftRadius: 0,
-          paddingVertical: 8,
-          paddingHorizontal: 10,
-          marginVertical: 5,
+          paddingVertical: moderateScaleVertical(8),
+          paddingHorizontal: moderateScale(10),
+          marginVertical: moderateScaleVertical(5),
         }}>
         <Text style={{color: 'white'}}>{message.message}</Text>
       </View>

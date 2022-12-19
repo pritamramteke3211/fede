@@ -12,33 +12,26 @@ import Splash from '../../screens/stack/Splash';
 const Stack = createStackNavigator();
 
 export default StackNav = () => {
-
   return (
     <Stack.Navigator
       screenOptions={{
         headerShown: false,
-      }}
-     
-      >
-          <Stack.Group>
-          
-          <Stack.Screen name="Splash" component={Splash} />
-          <Stack.Screen name="Login" component={Login} />
-            <Stack.Screen name="GetLocation" component={GetLocation} />
-            <Stack.Screen name="Home" component={Home} />
-            <Stack.Screen name="Chat" component={Chat} />
-            <Stack.Screen name="Message" component={Message} />
-          </Stack.Group>
-          <Stack.Group
-            screenOptions={{presentation: 'modal', gestureEnabled: true}}>
-            <Stack.Screen name="Modal" component={Modal} />
-          </Stack.Group>
-          <Stack.Group screenOptions={{presentation: 'transparentModal'}}>
-            <Stack.Screen name="Match" component={Match} />
-          </Stack.Group>
-        
-       
-      
+      }}>
+      <Stack.Group>
+        <Stack.Screen name="Splash" component={Splash} />
+        <Stack.Screen name="Login" component={Login} />
+        <Stack.Screen name="GetLocation" component={GetLocation} />
+        <Stack.Screen name="Home" component={Home} />
+        <Stack.Screen name="Chat" component={Chat} />
+        <Stack.Screen name="Message" component={Message} />
+      </Stack.Group>
+      <Stack.Group
+        screenOptions={{presentation: 'modal', gestureEnabled: true}}>
+        <Stack.Screen name="Modal" component={Modal} />
+      </Stack.Group>
+      <Stack.Group screenOptions={{presentation: 'transparentModal'}}>
+        <Stack.Screen name="Match" component={Match} />
+      </Stack.Group>
     </Stack.Navigator>
   );
 };

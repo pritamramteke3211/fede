@@ -1,5 +1,6 @@
 import {StyleSheet, Text, View} from 'react-native';
 import React from 'react';
+import {moderateScale} from '../src/styles/ResponsiveSize';
 
 const SenderMessage = ({message}) => {
   return (
@@ -8,10 +9,10 @@ const SenderMessage = ({message}) => {
         backgroundColor: 'purple',
         borderRadius: 5,
         borderTopRightRadius: 0,
-        paddingVertical: 8,
-        paddingHorizontal: 10,
-        marginHorizontal: 16,
-        marginVertical: 5,
+        paddingVertical: moderateScaleVertical(8),
+        paddingHorizontal: moderateScale(10),
+        marginHorizontal: moderateScale(16),
+        marginVertical: moderateScaleVertical(5),
         alignSelf: 'flex-start',
         marginLeft: 'auto',
       }}>

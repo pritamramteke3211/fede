@@ -9,6 +9,10 @@ import React from 'react';
 import FIcon from 'react-native-vector-icons/Foundation';
 import Ioicon from 'react-native-vector-icons/Ionicons';
 import {useNavigation} from '@react-navigation/native';
+import {
+  moderateScale,
+  moderateScaleVertical,
+} from '../src/styles/ResponsiveSize';
 
 const Header = ({title, callEnabled}) => {
   const navigation = useNavigation();
@@ -18,13 +22,18 @@ const Header = ({title, callEnabled}) => {
         flexDirection: 'row',
         alignItems: 'center',
         justifyContent: 'space-between',
-        padding: 10,
+        padding: moderateScale(10),
       }}>
       <View style={{flex: 1, flexDirection: 'row', alignItems: 'center'}}>
         <TouchableOpacity onPress={() => navigation.goBack()}>
           <Ioicon name="chevron-back" size={34} color="#FF5864" />
         </TouchableOpacity>
-        <Text style={{fontSize: 18, fontWeight: 'bold', paddingLeft: 10}}>
+        <Text
+          style={{
+            fontSize: 18,
+            fontWeight: 'bold',
+            paddingLeft: moderateScale(10),
+          }}>
           {title}
         </Text>
       </View>
@@ -32,10 +41,10 @@ const Header = ({title, callEnabled}) => {
       {callEnabled && (
         <TouchableOpacity
           style={{
-            marginRight: 10,
+            marginRight: moderateScale(10),
             backgroundColor: '#fa868eb1',
-            paddingVertical: 8,
-            paddingHorizontal: 10,
+            paddingVertical: moderateScaleVertical(8),
+            paddingHorizontal: moderateScale(10),
             borderRadius: 20,
           }}>
           <FIcon style={{}} color="red" name="telephone" size={20} />
