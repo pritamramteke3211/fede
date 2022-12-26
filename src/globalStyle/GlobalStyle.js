@@ -15,6 +15,12 @@ const gstyles = StyleSheet.create({
   glob_fontmedium: {
     fontFamily: 'Poppins-Medium',
   },
+  glob_fontsemibold: {
+    fontFamily: 'Poppins-SemiBold',
+  },
+  glob_fontbold: {
+    fontFamily: 'Poppins-Bold',
+  }
 });
 
 export default gstyles;
