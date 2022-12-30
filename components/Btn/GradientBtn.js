@@ -4,17 +4,17 @@ import LinearGradient from 'react-native-linear-gradient';
 import gstyles from '../../src/globalStyle/GlobalStyle';
 import {moderateScaleVertical} from '../../src/styles/ResponsiveSize';
 
-const AllowLocationBtn = ({getLocation}) => {
+const GradientBtn = ({onPressA,text}) => {
   return (
     <>
-      <TouchableOpacity onPress={() => getLocation()}>
+      <TouchableOpacity onPress={() => onPressA()}>
         <LinearGradient
           style={styles.btn_container}
           start={{x: 0, y: 0}}
           end={{x: 1, y: 0}}
           colors={['#fa298b', '#f55f14']}>
           <Text style={[styles.btn_title, gstyles.glob_fontmedium]}>
-            ALLOW LOCATION
+           {text}
           </Text>
         </LinearGradient>
       </TouchableOpacity>
@@ -22,7 +22,7 @@ const AllowLocationBtn = ({getLocation}) => {
   );
 };
 
-export default AllowLocationBtn;
+export default GradientBtn;
 
 const styles = StyleSheet.create({
   btn_container: {

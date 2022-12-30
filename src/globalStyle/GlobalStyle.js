@@ -20,7 +20,7 @@ const gstyles = StyleSheet.create({
   },
   glob_fontbold: {
     fontFamily: 'Poppins-Bold',
-  }
+  },
 });
 
 export default gstyles;

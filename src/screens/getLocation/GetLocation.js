@@ -1,4 +1,4 @@
-import React, {useState, useEffect, useRef, useCallback} from 'react';
+import React, {useState, useEffect, useRef, useCallback, useLayoutEffect} from 'react';
 
 import {
   Text,
@@ -19,7 +19,7 @@ import gstyles from '../../globalStyle/GlobalStyle';
 import LinearGradient from 'react-native-linear-gradient';
 import BottomSheet from '../../../components/bottom_sheet/BottomSheet';
 import {GestureHandlerRootView} from 'react-native-gesture-handler';
-import AllowLocationBtn from '../../../components/Btn/AllowLocationBtn';
+import GradientBtn from '../../../components/Btn/GradientBtn';
 import {useDispatch, useSelector} from 'react-redux';
 import {setLoginUserLocation} from '../../store/feature/authentication/authentication';
 import {
@@ -28,12 +28,18 @@ import {
   scr_height,
   scr_width,
 } from '../../styles/ResponsiveSize';
+import {Linking,DevSettings} from 'react-native';
+import { useNavigation } from '@react-navigation/native';
 
-const GetLocation = ({navigation}) => {
+const GetLocation = () => {
+
+  const navigation = useNavigation()
   const ref = useRef();
   const dispatch = useDispatch();
 
   const [locationStatus, setlocationStatus] = useState('');
+  const [permission_denied, setpermission_denied] = useState(false)
+  const [refresh, setrefresh] = useState(false)
 
   const watchID = null;
 
@@ -47,6 +53,7 @@ const GetLocation = ({navigation}) => {
   }, []);
 
   const getLocation = () => {
+
     const requestLocationPermission = async () => {
       if (Platform.OS === 'ios') {
         getOneTimeLocation();
@@ -66,6 +73,7 @@ const GetLocation = ({navigation}) => {
             getOneTimeLocation();
             // subscribeLocationLocation();
           } else {
+            setpermission_denied(true)
             setlocationStatus('Permission Denied');
           }
         } catch (err) {
@@ -116,6 +124,33 @@ const GetLocation = ({navigation}) => {
     );
   };
 
+  const openAppSetting = () => {
+    Linking.openSettings()
+  }
+
+  const checkLocationPermission = async () => {
+    const granted = await PermissionsAndroid.check( PermissionsAndroid.PERMISSIONS.ACCESS_FINE_LOCATION );
+
+    if (granted) {
+      console.log( "You can use the ACCESS_FINE_LOCATION" )
+    } 
+    else {
+      console.log( "ACCESS_FINE_LOCATION permission denied" )}
+    
+  }
+
+  useLayoutEffect(() => {
+    
+    checkLocationPermission()
+    const focusHandler = navigation.addListener('focus', () => {
+      checkLocationPermission()
+      // DevSettings.reload()
+
+    });
+    return focusHandler;
+  }, []);
+
+
   return (
     <GestureHandlerRootView style={gstyles.container}>
       <View style={gstyles.container}>
@@ -124,7 +159,7 @@ const GetLocation = ({navigation}) => {
             <EvlIcon name="location" size={scr_width / 3.2} />
           </View>
         </View>
-
+       { !permission_denied ? 
         <View style={[styles.location_para_container, gstyles.center_align]}>
           <View style={styles.loc_title_container}>
             <Text style={[styles.loc_title, gstyles.glob_fontmedium]}>
@@ -138,7 +173,7 @@ const GetLocation = ({navigation}) => {
             </Text>
           </View>
 
-          <AllowLocationBtn getLocation={getLocation} />
+          <GradientBtn onPressA={getLocation} text={'Allow Location'} />
 
           <TouchableOpacity
             style={[styles.more_title_container]}
@@ -149,6 +184,29 @@ const GetLocation = ({navigation}) => {
             <EntIcon name="chevron-small-down" size={25} />
           </TouchableOpacity>
         </View>
+        :
+        <View style={[styles.location_para_container, gstyles.center_align]}>
+          <View style={styles.loc_title_container}>
+            <Text style={[styles.loc_title, gstyles.glob_fontmedium]}>
+              Oops
+            </Text>
+          </View>
+          <View style={styles.loc_para_container}>
+            <Text style={[styles.loc_para, gstyles.glob_fontmedium]}>
+              In order to use Tinder, please {'\n'}
+              enable your location
+              {'\n'} {'\n'}
+              Go to App Setting 
+              <EntIcon name="chevron-small-right" size={25} />
+              {'\n'}
+               Permissions
+            </Text>
+          </View>
+
+          <GradientBtn onPressA={openAppSetting} text={'OPEN SETTINGS'} />
+
+        </View>
+}
       </View>
 
       <BottomSheet ref={ref}>
@@ -157,7 +215,7 @@ const GetLocation = ({navigation}) => {
             gstyles.center_align,
             {paddingVertical: moderateScaleVertical(25)},
           ]}>
-          <AllowLocationBtn getLocation={getLocation} />
+          <GradientBtn getLocation={getLocation} text={'Allow Location'} />
         </View>
         <View
           style={[

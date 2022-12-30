@@ -1,4 +1,4 @@
-import {StyleSheet} from 'react-native';
+import {StatusBar, StyleSheet} from 'react-native';
 import React from 'react';
 import {persistor, store} from './src/store/Store';
 import {Provider} from 'react-redux';

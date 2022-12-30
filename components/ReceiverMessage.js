@@ -1,6 +1,6 @@
 import {Image, StyleSheet, Text, View} from 'react-native';
 import React from 'react';
-import {moderateScale} from '../src/styles/ResponsiveSize';
+import {moderateScale, moderateScaleVertical} from '../src/styles/ResponsiveSize';
 
 const ReceiverMessage = ({message}) => {
   return (
